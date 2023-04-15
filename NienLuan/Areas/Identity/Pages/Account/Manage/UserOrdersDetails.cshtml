@@ -1,0 +1,89 @@
+﻿@page
+@model SPYte.Areas.Identity.Pages.Account.Manage.UserOrdersDetailsModel
+@{
+    ViewData["Title"] = "Chi tiết đơn hàng";
+    ViewData["ActivePage"] = ManageNavPages.UserOrders;
+    var amount = Model.Order.GrandTotal * 100;
+}
+<div class="container">
+    <div class="row">
+        <p>Khách hàng: @Model.Order.CustomerName</p>
+    </div>
+    <div class="row">
+        <p>Ngày đặt: @Model.Order.CreatedDate</p>
+    </div>
+    <div class="row">
+        <p>Địa chỉ giao: @Model.Order.AddressId</p>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="shoping__cart__table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="shoping__product">Products</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.OrderItems)
+                        {
+                            var imgUrl = "/files/products/images/";
+                            foreach (var img in item.Product.ProductImgs)
+                            {
+                                imgUrl += img.Url;
+                                break;
+                            }
+                            <tr>
+                                <td class="shoping__cart__item">
+                                    <img src="@imgUrl" alt="" style="width:100px; height:100px;">
+                                    <h5>@item.Product.Name</h5>
+                                </td>
+                                <td class="shoping__cart__price">
+                                    @item.Product.Price.ToString("#,###.#") &nbsp;<i class="fa-solid fa-dong-sign"></i>
+                                </td>
+                                <td class="shoping__cart__price">
+                                    @item.Quantity
+                                </td>
+                                <td class="shoping__cart__total">
+                                    @(item.TotalPrice.ToString("#,###.#"))&nbsp;<i class="fa-solid fa-dong-sign"></i>
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="shoping__checkout">
+                <ul>
+                    <li>Shipping <span>15,000&nbsp;<i class="fa-solid fa-dong-sign"></i></span></li>
+                    <li>Total <span>>@Model.Order.GrandTotal.ToString("#,###.#")&nbsp;<i class="fa-solid fa-dong-sign"></i></span></li>
+                </ul>
+                @if(Model.Order.Status == 0)
+                {
+                    <form method="post" asp-action="Pay" asp-controller="Transactions" asp-area="">
+                        <input name="OrderId" id="OrderId" value="@Model.Order.Id.ToString()" readonly hidden />
+                        <input name="Amount" id="Amount" value="@amount.ToString()" readonly hidden />
+                        <button class="btn btn-danger w-100">Thanh toán</button>
+                    </form>
+                    <a asp-page="./UserOrders" class="primary-btn mt-4">Trở lại</a>
+                }
+                else
+                {
+                    <a class="btn btn-success w-100" asp-action="Details" asp-controller="Transactions" asp-route-id="@Model.Order.Id" asp-area="">Đã thanh toán</a>
+                    <a asp-page="./UserOrders" class="primary-btn mt-4">Trở lại</a>
+                }
+                
+                
+
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SPYte", "NienLuan\SPYte.csproj", "{218A5080-E6EE-44E2-98F1-6837B5092F61}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VNPayment", "VNPayment\VNPayment.csproj", "{0A968650-E46A-4D73-8BF4-3001BD49810C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailService", "EmailService\EmailService.csproj", "{E3A16BA3-4450-4FB6-92C1-694CADC9B0B6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{218A5080-E6EE-44E2-98F1-6837B5092F61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{218A5080-E6EE-44E2-98F1-6837B5092F61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{218A5080-E6EE-44E2-98F1-6837B5092F61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{218A5080-E6EE-44E2-98F1-6837B5092F61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A968650-E46A-4D73-8BF4-3001BD49810C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A968650-E46A-4D73-8BF4-3001BD49810C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A968650-E46A-4D73-8BF4-3001BD49810C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A968650-E46A-4D73-8BF4-3001BD49810C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3A16BA3-4450-4FB6-92C1-694CADC9B0B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3A16BA3-4450-4FB6-92C1-694CADC9B0B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3A16BA3-4450-4FB6-92C1-694CADC9B0B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3A16BA3-4450-4FB6-92C1-694CADC9B0B6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {58861DC4-C44C-4F66-A049-BE4E04041C61}
+	EndGlobalSection
+EndGlobal

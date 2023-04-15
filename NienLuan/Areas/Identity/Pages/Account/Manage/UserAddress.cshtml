@@ -1,0 +1,158 @@
+﻿@page
+@model SPYte.Areas.Identity.Pages.Account.Manage.UserAddressModel
+@{
+    ViewData["Title"] = "User's Address";
+    ViewData["ActivePage"] = ManageNavPages.UserAddress;
+}
+<div class="container">
+    <div class="row">
+        <form method="post">
+            <div class="card text-center p-0">
+                <div class="card-header">
+                    Add Address
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="Input.name"></label>
+                            <input asp-for="Input.name" class="form-control" />
+                            <span asp-validation-for="Input.name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Input.addressDetail"></label>
+                            <input asp-for="Input.addressDetail" class="form-control" />
+                            <span asp-validation-for="Input.addressDetail" class="text-danger"></span>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="province">Province</label>
+                            <select id="ProvinceList" name="Province" class="form-control" asp-items="ViewBag.Provinces">
+                                <option value="-1">Select Province</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="district">District</label>
+                            <select id="DistrictList" name="District" class="form-control" asp-items="ViewBag.DistrictId">
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Input.WardCode"></label>
+                            <select id="WardList" asp-for="Input.WardCode" class="form-control" asp-items="ViewBag.WardId">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-muted">
+                    <button class="btn btn-primary"> Add </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Address' Name
+                    </th>
+                    <th>
+                        Address Details
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.AddressList)
+                {
+                    var address =   item.AddressDetail + ", " +
+                                    item.WardCodeNavigation.FullName + ", " +
+                                    item.WardCodeNavigation.DistrictCodeNavigation.FullName + ", " +
+                                    item.WardCodeNavigation.DistrictCodeNavigation.ProvinceCodeNavigation.FullName;
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @address
+                        </td>
+                        <td>
+                            <span title="Xóa">
+                                <form asp-action="Delete" asp-controller="Addresses" asp-area="" asp-route-id="@item.Id">
+                                    <button class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+                                </form>
+                            </span>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+ @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+
+
+        <script>
+            $(document).ready(
+                function () {
+                    $("#ProvinceList").on("change", function () {
+
+                        $.ajax({
+                            type: "Post",
+                            url: "/Addresses/GetDistrict",
+                            data: { "ProvinceId": $("#ProvinceList").val() },
+                            dataType:"json",
+                            success: function (response) {
+                                var items = '';
+                                var empty = '';
+                                $(response).each(function () {
+                                    items += "<option value=" + this.value + ">" + this.text + "</option>";
+                                })
+                                $("#DistrictList").html(items);
+                                $("#WardList").html(empty);
+                            },
+                            failure: function (response) {
+                                alert(response.responseText);
+                            },
+                            error: function (response) {
+                                alert(response.responseText);
+                            }
+                        });
+
+                    })
+                }
+            );
+            $(document).ready(
+                function () {
+                    $("#DistrictList").on("change", function () {
+
+                        $.ajax({
+                            type: "Post",
+                            url: "/Addresses/GetWard",
+                            data: { "DistrictId": $("#DistrictList").val() },
+                            dataType: "json",
+                            success: function (response) {
+                                var items = '';
+                                $(response).each(function () {
+                                    items += "<option value=" + this.value + ">" + this.text + "</option>";
+                                })
+                                $("#WardList").html(items);
+                            },
+                            failure: function (response) {
+                                alert(response.responseText);
+                            },
+                            error: function (response) {
+                                alert(response.responseText);
+                            }
+                        });
+
+                    })
+                }
+            );
+        </script>
+    }

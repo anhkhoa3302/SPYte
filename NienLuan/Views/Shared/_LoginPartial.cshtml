@@ -1,0 +1,43 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="header__top__right__language">
+
+        <div><i class="fa-solid fa-list-check"></i> &nbsp; Manage</div>
+        <span class="arrow_carrot-down"></span>
+        <ul>
+            <li><a id="manage" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage Account"><i class="fa-regular fa-user"></i>&nbsp;Account</a></li>
+            @if (User.IsInRole("Admin"))
+            {
+                <li class="nav-item">
+                    <a id="manage" asp-area="Admin" asp-controller="Administrator" asp-action="index" title="Manage Website"><i class="fa-solid fa-gear">&nbsp;</i>Website</a>
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="header__top__right__auth">
+        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <button id="logout" type="submit" class="nav-link btn btn-link text-dark" title="Logout"><i class="fa-solid fa-power-off"></i></button>
+        </form>
+    </div>
+}
+else
+{
+    <div class="header__top__right__language">
+        <div>Login</div>
+        <span class="arrow_carrot-down"></span>
+        <ul>
+            <li>
+                <a id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            </li>
+            <li>
+                <a id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+            </li>
+        </ul>
+
+
+    </div>
+}
