@@ -9,7 +9,7 @@ a.navbar-brand {
 
 /* Provide sufficient contrast against white background */
 a {
-	color: #0366d6;
+	color: #33CC00;
 }
 
 .btn-primary {
@@ -20,8 +20,8 @@ a {
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
 	color: #fff;
-	background-color: #1b6ec2;
-	border-color: #1861ac;
+	background-color: #33CC00;
+	border-color: #33CC00;
 }
 
 
@@ -642,7 +642,7 @@ ol {
 	color: #ffffff;
 	text-transform: uppercase;
 	font-weight: 700;
-	background: #358ce9;
+	background: #33CC00;
 	letter-spacing: 2px;
 }
 
@@ -653,7 +653,7 @@ ol {
 	text-transform: uppercase;
 	display: inline-block;
 	padding: 13px 30px 12px;
-	background: #358ce9;
+	background: #33CC00;
 	border: none;
 }
 
@@ -845,10 +845,11 @@ ol {
 	}
 
 	.header__top__right__language ul {
-		background: #222222;
+		background: #FFFFCC;
 		width: 100px;
-		text-align: left;
-		padding: 5px 0;
+		/*text-align: left;*/
+		margin-left: 5px;
+		padding: 5px 5px;
 		position: absolute;
 		left: 0;
 		top: 43px;
@@ -939,7 +940,7 @@ ol {
 				}
 
 		.header__menu ul li.active a {
-			color: #358ce9;
+			color: #33CC00;
 		}
 
 		.header__menu ul li:hover .header__menu__dropdown {
@@ -949,7 +950,7 @@ ol {
 		}
 
 		.header__menu ul li:hover > a {
-			color: #358ce9;
+			color: #33CC00;
 		}
 
 		.header__menu ul li:last-child {
@@ -1003,7 +1004,7 @@ ol {
 				.header__cart ul li a span {
 					height: 13px;
 					width: 13px;
-					background: #358ce9;
+					background: #33CC00;
 					font-size: 10px;
 					color: #ffffff;
 					line-height: 13px;
@@ -1066,7 +1067,7 @@ ol {
 		}
 
 .hero__categories__all {
-	background: #358ce9;
+	background: #33CC00;
 	position: relative;
 	padding: 10px 25px 10px 40px;
 	cursor: pointer;
@@ -1154,7 +1155,7 @@ ol {
 		}
 
 	.hero__search__form form input {
-		width: 70%;
+		width: 85%;
 		border: none;
 		height: 48px;
 		font-size: 16px;
@@ -1736,7 +1737,7 @@ ol {
 
 .product {
 	padding-top: 80px;
-	padding-bottom: 80px;
+	padding-bottom: 10px;
 }
 
 .product__discount {
@@ -2126,8 +2127,8 @@ ol {
 
 		.product__pagination a:hover,
 		.blog__pagination a:hover {
-			background: #358ce9;
-			border-color: #358ce9;
+			background: #33CC00;
+			border-color: #33CC00;
 			color: #ffffff;
 		}
 
@@ -2137,8 +2138,8 @@ ol {
 		}
 
 		.product__pagination a.active {
-			background: #358ce9;
-			border-color: #358ce9;
+			background: #33CC00;
+			border-color: #33CC00;
 			color: #ffffff;
 		}
 
@@ -3594,7 +3595,7 @@ ol {
 				.humberger__menu__cart ul li a span {
 					height: 13px;
 					width: 13px;
-					background: #358ce9;
+					background: #33CC00;
 					font-size: 10px;
 					color: #ffffff;
 					line-height: 13px;
@@ -3674,7 +3675,7 @@ ol {
 			-webkit-border-radius: 0;
 			border-radius: 0;
 			background: transparent;
-			color: #358ce9;
+			color: #33C00;
 		}
 
 	.humberger__menu__wrapper .slicknav_nav .slicknav_row,

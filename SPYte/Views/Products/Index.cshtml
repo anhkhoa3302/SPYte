@@ -64,7 +64,7 @@
                 </div>
                 <div class="filter__item">
                     <div class="row">
-                        <div class="col-lg-4 col-md-5">
+                        @*<div class="col-lg-4 col-md-5">
                             <div class="filter__sort">
                                 <span>Sort By</span>
                                 <select class="nice-select" id="SortOption">
@@ -73,13 +73,13 @@
                                     <option value="date">Date</option>
                                 </select>
                             </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4">
+                        </div>*@
+@*                        <div class="col-lg-2 col-md-6">*@
                             <div class="filter__found">
                                 <h6><span>@ViewBag.ProSum</span>Sản phẩm</h6>
                             </div>
-                        </div>
-                    </div>
+@*                        </div>
+*@                    </div>
                 </div>
                 <div class="row">
                         @{
@@ -118,4 +118,130 @@
         </div>
     </div>
 </section>
+<br />
+
+<section class="featured spad">
+    <div class="container">
+        <h2 class="text-center">Các sẩn phẩm bán chạy</h2>
+
+        <div class="containerr">
+            <div id="slide">
+                <div class="slide_item" style="background-image: url(/img/products/banchai.jpg);">
+                    <div class="slide_content">
+                        <div class="slide_name">Bàn Chải Pro</div>
+                        <div class="slide_des">25.000 VNĐ</div>
+                        <button>
+                            <a href="/Products/Details/3">Xem thêm</a>
+                        </button>
+                    </div>
+                </div>
+                <div class="slide_item" style="background-image: url('/img/products/bang-dinh-y-te-1.jpg');">
+                    <div class="slide_content">
+                        <div class="slide_name">Băng dính</div>
+                        <div class="slide_des">20.000 VNĐ</div>
+                        <button>
+                            <a href="/Products/Details/4">Xem thêm</a>
+                        </button>
+                    </div>
+                </div>
+                <div class="slide_item" style="background-image: url('/img/products/Dụng cụ cắt móng tay.jpg');">
+                    <div class="slide_content">
+                        <div class="slide_name">DC cắt móng tay</div>
+                        <div class="slide_des">30.000 VNĐ</div>
+                        <button>
+                            <a href="/Products/Details/8">Xem thêm</a>
+                        </button>
+                    </div>
+                </div>
+                <div class="slide_item" style="background-image: url('/img/products/Dụng cụ đo đường huyết.jpg');">
+                    <div class="slide_content">
+                        <div class="slide_name">DC đo đường huyết</div>
+                        <div class="slide_des">500.000 VNĐ</div>
+                        <button>
+                            <a href="/Products/Details/10">Xem thêm</a>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="slide_item" style="background-image: url('/img/products/Dụng cụ xông mũi họng.jpg');">
+                    <div class="slide_content">
+                        <div class="slide_name">DC xông mũi họng</div>
+                        <div class="slide_des">150.000 VNĐ</div>
+                        <button>
+                            <a href="/Products/Details/11">Xem thêm</a>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="slide_item" style="background-image: url('/img/products/khautrang.jpg');">
+                    <div class="slide_content">
+                        <div class="slide_name">Khẩu trang y tế</div>
+                        <div class="slide_des">3.000 VNĐ</div>
+                        <button>
+                            <a href="/Products/Details/5">Xem thêm</a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button id="btn_prev"><</button>
+                <button id="btn_next">></button>
+            </div>
+
+
+        </div>
+    </div>
+</section>
+
+<br />
+<div class="banner">
+    <br />
+    <h3 class="text-center">Sản Phẩm Nổi Bật</h3>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="banner__pic">
+                    <img src="/files/BANNER-6-1.png" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="banner__pic">
+                    <img src="/files/banner_1.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Slide
+
+    document.getElementById('btn_next').onclick = function () {
+        let lists = document.querySelectorAll('.slide_item');
+        document.getElementById('slide').appendChild(lists[0]);
+    }
+
+    document.getElementById('btn_prev').onclick = function () {
+        let lists = document.querySelectorAll('.slide_item');
+        document.getElementById('slide').prepend(lists[lists.length - 1]);
+    }
+
+    // /Slide
+
+
+    document.getElementById('next').onclick = function () {
+
+    }
+
+    function AddToCart(ProductId) {
+        $.ajax({
+            type: 'POST', url: '/User/Product/AddtoCart', data: { id: ProductId }, success: function (data) {
+                $("#Cart_Amount").html(data.ItemAmount);
+            }
+        });
+    }
+</script>
+
+
 

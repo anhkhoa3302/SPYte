@@ -6,13 +6,45 @@
 <div class="container pb-lg-5">
     <div class="row">
         <div class="col-lg w-100">
-            <div class="hero__item set-bg" data-setbg="files/banner.png">
+            <div class="hero__item set-bg" data-setbg="files/banner_yte-2.jpg">
                 <div class="hero__text">
-                    <span>CTU sh SHOP</span>
-                    <h2>@*CTU sh SHOP <br />*@Xin chào!</h2>
-                    <a asp-area="" asp-controller="Products" asp-action="Index" class="btn btn-primary">SHOP NOW</a>
+                    <span>SPYte SHOP</span>
+                    <h2>@*CTU sh SHOP <br />*@Xin chào!!</h2>
+                    <a asp-area="" asp-controller="Products" asp-action="Index" class="btn btn-success">SHOP NOW</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
+
+<script>
+    // Slide
+
+    document.getElementById('btn_next').onclick = function () {
+        let lists = document.querySelectorAll('.slide_item');
+        document.getElementById('slide').appendChild(lists[0]);
+    }
+
+    document.getElementById('btn_prev').onclick = function () {
+        let lists = document.querySelectorAll('.slide_item');
+        document.getElementById('slide').prepend(lists[lists.length - 1]);
+    }
+
+    // /Slide
+
+
+    document.getElementById('next').onclick = function () {
+
+    }
+
+    function AddToCart(ProductId) {
+        $.ajax({
+            type: 'POST', url: '/User/Product/AddtoCart', data: { id: ProductId }, success: function (data) {
+                $("#Cart_Amount").html(data.ItemAmount);
+            }
+        });
+    }
+</script>
+
