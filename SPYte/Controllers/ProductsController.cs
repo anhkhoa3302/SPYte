@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -36,7 +37,11 @@ namespace SPYte.Controllers
             {
                 if (text == null)
                 {
-                    shshopContext = await _context.Products.Include(p => p.User).Include(n => n.ProductImgs).Where(n => n.Status == 1).OrderBy(p => p.Name).ToListAsync();
+                    shshopContext = await _context.Products.Include(p => p.User)
+                    .Include(n => n.ProductImgs)
+                   .Where(n => n.Status == 1) // chỉ lấy các sản phẩm có status = 1
+                    .OrderBy(p => p.Name)
+                    .ToListAsync();
                     ViewBag.ProductListTitle = "Tất cả sản phẩm";
                 }
                 else
@@ -48,16 +53,21 @@ namespace SPYte.Controllers
             }
             else
             {
-                shshopContext = await _context.Products.Include(p => p.User).Include(n => n.ProductImgs).Include(n => n.ProductCategory).Where(n => n.Status == 1 && n.ProductCategory.Any(x => x.CategoryId == category)).OrderBy(p => p.Name).ToListAsync();
+                shshopContext = await _context.Products.Include(p => p.User)
+                    .Include(n => n.ProductImgs).Include(n => n.ProductCategory)
+                    .Where(n => n.IsVisible == 1)
+                    .OrderBy(p => p.Name).ToListAsync();
                 Category cat = await _context.Categories.FindAsync(category);
                 ViewBag.ProductListTitle = cat.Name;
                 ViewBag.CatBasedList = category;
             }
-
-
-
-            var NewestProduct = await _context.Products.Include(p => p.User).Include(n => n.ProductImgs).Where(n => n.Status == 1).ToListAsync();
-            ViewBag.NewestProduct = NewestProduct.OrderByDescending(x => x.CreatedDate).Take(3).ToList();
+            var NewestProduct = await _context.Products.Include(p => p.User)
+                .Include(n => n.ProductImgs)
+             .Where(n => n.Status == 1)
+             .ToListAsync();
+            ViewBag.NewestProduct = NewestProduct
+                .OrderByDescending(x => x.CreatedDate).
+                Take(3).ToList();
 
             const int pageSize = 9;
             if (pg < 1)
@@ -210,15 +220,67 @@ namespace SPYte.Controllers
             return View(product);
         }
 
-        // POST: Products/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(long id)
+        //// POST: Products/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(long id)
+        //{
+        //    var product = await _context.Products.FindAsync(id);
+        //    _context.Products.Remove(product);
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
+
+
+        //Hàm xoá bằng cách đặt status là 2, đẻ không active sản phẩm
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(long id)
+        //{
+        //    var product = await _context.Products.FindAsync(id);
+        //    if (product == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    product.IsVisible = 2; // đặt isVisible là 2, để ký hiệu là không còn hữu dụng nữa
+        //    product.Status = 2; // đặt status là 2 thay vì xoá
+        //    _context.Products.Update(product);
+        //    await _context.SaveChangesAsync();
+
+        //    return RedirectToAction(nameof(Index));
+        //}
+
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(long id)
+        //{
+        //    var product = await _context.Products.FindAsync(id);
+        //    if (product == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    product.IsVisible = 2; // đặt isVisible là 2, để ký hiệu là không còn hữu dụng
+        //    product.Status = 2;
+        //    _context.Entry(product).State = EntityState.Modified;
+
+        //    // Cập nhật bản ghi của các bảng khác trước khi xoá sản phẩm
+        //    var productCategories = await _context.ProductCategory.Where(pc => pc.ProductId == id).ToListAsync();
+        //    foreach (var pc in productCategories)
+        //    {
+        //        _context.ProductCategory.Update(pc);
+        //    }
+
+        //    // Lưu lại thay đổi và chuyển hướng trang
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
+
+
+
+        private bool ProductVisible(long id)
         {
-            var product = await _context.Products.FindAsync(id);
-            _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            return _context.Products.Any(e => e.IsVisible == 1); // nếu là 1 thì sẽ là hiển thị
         }
 
         private bool ProductExists(long id)

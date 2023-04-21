@@ -17,10 +17,7 @@ namespace SPYte.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _context;
 
-        public UserProductsModel(
-            UserManager<ApplicationUser> userManager,
-            ApplicationDbContext context
-            )
+        public UserProductsModel(   UserManager<ApplicationUser> userManager,   ApplicationDbContext context  )
         {
             _userManager = userManager;
             _context = context;

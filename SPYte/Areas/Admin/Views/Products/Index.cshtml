@@ -1,11 +1,12 @@
 ﻿@model IEnumerable<SPYte.Models.Product>
 
-@{
+{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Index</h1>
+
+ <h1>Index</h1>
 
 <link rel="stylesheet" href="~/css/app-dark.min.css" />
 <link rel="stylesheet" href="~/css/app.min.css" />
@@ -25,7 +26,8 @@
             <th>
                 @Html.DisplayNameFor(model => model.Summary)
             </th>
-          
+
+
             <th>
                 @Html.DisplayNameFor(model => model.Price)
             </th>
@@ -35,6 +37,17 @@
             <th>
                 @Html.DisplayNameFor(model => model.Unit)
             </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.IsVisible)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+
             <th></th>
         </tr>
     </thead>
@@ -47,7 +60,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Summary)
             </td>
-           
+
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
@@ -58,11 +71,19 @@
                 @Html.DisplayFor(modelItem => item.Unit)
             </td>
             <td>
-                <a asp-action="Details" asp-route-id="@item.Id" class="action-icon"> <i class="mdi mdi-eye"></i></a>
 
-                <a asp-action="Edit" asp-route-id="@item.Id" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
 
-                <a asp-action="Delete" asp-route-id="@item.Id" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                @Html.DisplayFor(modelItem => item.IsVisible)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.UserName)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }
