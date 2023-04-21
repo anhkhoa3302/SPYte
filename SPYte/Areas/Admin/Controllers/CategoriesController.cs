@@ -23,9 +23,9 @@ namespace SPYte.Areas.Admin.Controllers
         // GET: Admin/Categories
         public async Task<IActionResult> Index()
         {
-              return _context.Categories != null ? 
-                          View(await _context.Categories.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Categories'  is null.");
+            return _context.Categories != null ?
+                        View(await _context.Categories.ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.Categories'  is null.");
         }
 
         // GET: Admin/Categories/Details/5
@@ -142,6 +142,13 @@ namespace SPYte.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
+            // Kiểm tra xem sản phẩm có bị tham chiếu trong bảng "product_category" không
+            var isReferenced = await _context.ProductCategory.AnyAsync(pc => pc.ProductId == id);
+            if (isReferenced)
+            {
+                ModelState.AddModelError(string.Empty, "Không thể xoá sản phẩm vì nó được sử dụng trong bảng product_category");
+                return RedirectToAction(nameof(Delete), new { id = id });
+            }
             if (_context.Categories == null)
             {
                 return Problem("Entity set 'ApplicationDbContext.Categories'  is null.");
@@ -158,7 +165,7 @@ namespace SPYte.Areas.Admin.Controllers
 
         private bool CategoryExists(long id)
         {
-          return (_context.Categories?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Categories?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
