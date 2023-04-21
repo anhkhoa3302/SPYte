@@ -2,6 +2,16 @@
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
+
+<style>
+    .nav-link{
+        color: #33CC00;
+    }
+
+    .nav-item a:hover{
+        color: black;
+    }
+</style>
 <ul class="nav nav-pills flex-column">
     <li class="nav-item"><a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index"><i class="fa-solid fa-user"></i>&nbsp;Hồ sơ</a></li>
     <li class="nav-item"><a class="nav-link @ManageNavPages.UserProductsNavClass(ViewContext)" id="userProduct" asp-page="./UserProducts"><i class="fa-solid fa-book"></i>&nbsp;Sản phẩm</a></li>
