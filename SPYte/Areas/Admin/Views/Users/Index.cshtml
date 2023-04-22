@@ -12,7 +12,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Người dùng</h1>
 
 <table class="table">
     <thead>
@@ -46,10 +46,19 @@
                     @Html.DisplayFor(modelItem => item.CreatedDate)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Status)
+                    @{
+                        if(item.Status == 2){
+                            <a class="btn btn-danger" href="#">Banned</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-success" href="#">Not Banned</a>
+                        }
+                    }
+                    
                 </td>
                 <td>
-                    <a asp-action="Ban" asp-route-id="@item.Id">Ban</a>
+                    <a asp-action="Ban" asp-route-id="@item.Id">Ban | </a>
                     <a asp-action="UnBan" asp-route-id="@item.Id">UnBan</a>
                 </td>
             </tr>

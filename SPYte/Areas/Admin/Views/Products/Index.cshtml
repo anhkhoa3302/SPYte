@@ -1,22 +1,16 @@
 ﻿@model IEnumerable<SPYte.Models.Product>
 
-{
-    ViewData["Title"] = "Index";
+@{
+    ViewData["Title"] = "Quản lý sản phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
 
- <h1>Index</h1>
-
-<link rel="stylesheet" href="~/css/app-dark.min.css" />
-<link rel="stylesheet" href="~/css/app.min.css" />
-<link rel="stylesheet" href="~/css/icons.min.css" />
-<link rel="shortcut icon" href="~/img/favicon.ico">
 
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
+
+<h1>Sản phẩm</h1>
 <table class="table table-centered mb-0">
     <thead class="table-light">
         <tr>
@@ -72,11 +66,28 @@
             </td>
             <td>
 
-
-                @Html.DisplayFor(modelItem => item.IsVisible)
+                    @{
+                        if(item.IsVisible == 1)
+                        {
+                            <a class="btn btn-success" href="#">Yes</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-warning" href="#">No</a>
+                        }
+                    }
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Status)
+                    @{
+                        if (item.Status == 1)
+                        {
+                            <a class="btn btn-success" href="#">In Stock</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-warning" href="#">Out of Stock</a>
+                        }
+                    }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.User.UserName)

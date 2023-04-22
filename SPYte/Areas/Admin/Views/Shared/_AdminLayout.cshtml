@@ -1,6 +1,11 @@
 ﻿@{
     Layout = "/Views/Shared/_Layout.cshtml";
 }
+
+<link rel="stylesheet" href="~/css/app-dark.min.css" />
+<link rel="stylesheet" href="~/css/app.min.css" />
+<link rel="stylesheet" href="~/css/icons.min.css" />
+<link rel="shortcut icon" href="~/img/favicon.ico">
 <div class="container" style="min-height:800px">
     <h2>Quản lý website của bạn</h2>
     <div>
@@ -9,9 +14,7 @@
         <div class="row">
             <div class="col-md-3">
                 <ul class="nav nav-pills flex-column">
-                    <li class="nav-item"><a class="nav-link" href='/Admin'><i class="fa-solid fa-table-columns"></i>&nbsp;Dashboard</a></li>
                     <li class="nav-item"><a class="nav-link" href='/Admin/Users'><i class="fa-solid fa-user"></i>&nbsp;Quản lý người dùng</a></li>
-                    <li class="nav-item"><a class="nav-link" href='/Admin/Reports'><i class="fa-solid fa-flag"></i>&nbsp;Quản lý phản hồi</a></li>
                     <li class="nav-item"><a class="nav-link" href='/Admin/Products'><i class="fa-solid fa-laptop"></i>&nbsp;Quản lý sản phẩm</a></li>
                     <li class="nav-item"><a class="nav-link" href='/Admin/UserOrders'><i class="fa-solid fa-receipt"></i>&nbsp;Quản lý đơn hàng</a></li>
                     <li class="nav-item"><a class="nav-link" href='/Admin/Categories'><i class="fa-solid fa-bars"></i>&nbsp;Quản lý loại</a></li>
