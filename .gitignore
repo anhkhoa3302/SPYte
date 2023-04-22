@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/SPYte/appsettings.json
+/SPYte/wwwroot/files/products/images
