@@ -307,7 +307,7 @@ namespace SPYte.Data
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.ProductCategory)
                     .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_product_category_product");
             });
 

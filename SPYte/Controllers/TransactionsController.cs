@@ -5,6 +5,9 @@ using Microsoft.Extensions.Primitives;
 using SPYte.Data;
 using SPYte.Models;
 using VNPayment;
+using EmailService;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using System.Text.Encodings.Web;
 
 namespace SPYte.Controllers
 {
@@ -13,16 +16,19 @@ namespace SPYte.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _context;
         private readonly IVNPayPayment _vnpay;
+        private readonly EmailService.IEmailSender _emailSender;
 
         public TransactionsController(
             ApplicationDbContext context,
             UserManager<ApplicationUser> userManager,
-            IVNPayPayment vnpay
+            IVNPayPayment vnpay,
+            EmailService.IEmailSender emailSender
             )
         {
             _context = context;
             _userManager = userManager;
             _vnpay = vnpay;
+            _emailSender = emailSender;
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -91,11 +97,38 @@ namespace SPYte.Controllers
                     if (transaction.vnp_ResponseCode == "00" && transaction.vnp_TransactionStatus == "00")
                     {
                         transaction.Status = true;
-                        UserOrder order = await _context.UserOrders.FindAsync(transaction.OrderId);
+                        //UserOrder order = await _context.UserOrders.FindAsync(transaction.OrderId);
+                        UserOrder order = await _context.UserOrders.Include(p => p.OrderDetails).Where(p => p.Id == transaction.OrderId).FirstOrDefaultAsync();
                         order.Status = 1;
                         order.UpdatedDate = DateTime.Now;
                         _context.UserOrders.Update(order);
                         await _context.SaveChangesAsync();
+
+                        String message = "<p>Xin chào " + order.CustomerName + ",</p>" +
+                            "<p><b>Chi tiết đơn hàng</b> :</p>" +
+                            "<p><b>Ngày thanh toán</b> : " + order.UpdatedDate + "</p>" +
+                            "<p><b>Địa chỉ giao</b> : " + order.AddressId + "</p>" +
+                            "<p><b>Ngân hàng</b> : " + transaction.bankCode + "</p>" +
+                            "<p><b>Mã giao dịch</b> : " + transaction.vnpayTranId + "</p>" +
+                            "<p><b>Các sản phẩm đã mua</b> :</p>";
+
+                        foreach (var item in order.OrderDetails)
+                        {
+                            var product = await _context.Products.FindAsync(item.ProductId);
+                            if(product != null)
+                            {
+                                message += "<p>- " + product.Name  +" x"+item.Quantity +" : " + item.TotalPrice.ToString("#,###.#") + "vnđ</p>";
+                            }
+                        }
+                        message += "<p><b>Shipping</b> : 15.000vnđ</p>";
+                        message += "<p><b style = \"color:red\">Tổng tiền</b> : " + order.GrandTotal.ToString("#,###.#") + "vnđ</p>";
+                            //"<b></b> : " + +"\n" +
+                            //"<b></b> : " + +"\n" +
+
+
+
+                        Message mssg = new Message(new string[] { user.Email },"Chi tiết đơn hàng",message);
+                        _emailSender.SendEmail(mssg);
                     }
                     else
                     {
