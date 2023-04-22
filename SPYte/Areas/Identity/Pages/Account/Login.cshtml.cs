@@ -22,11 +22,14 @@ namespace SPYte.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly UserManager<ApplicationUser> _userManager;
+        
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger, UserManager<ApplicationUser> userManager)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _userManager = userManager;
         }
 
         /// <summary>
@@ -35,6 +38,9 @@ namespace SPYte.Areas.Identity.Pages.Account
         /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
+
+        [TempData]
+        public string StatusMessage { get; set;}
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -106,6 +112,17 @@ namespace SPYte.Areas.Identity.Pages.Account
             returnUrl ??= Url.Content("~/");
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+            var user = await _userManager.FindByNameAsync(Input.UserName);
+            if (user != null)
+            {
+                if(user.Status == 2)
+                {
+                    StatusMessage = "Error: You 're Banned";
+                    return Page();
+                }
+
+            }
 
             if (ModelState.IsValid)
             {

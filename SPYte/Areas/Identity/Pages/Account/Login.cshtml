@@ -5,7 +5,7 @@
     ViewData["Title"] = "Log in";
     Layout = "~/Areas/Identity/Pages/_AuthLayout.cshtml";
 }
-
+<partial name="_StatusMessage" model="Model.StatusMessage" />
 <form id="account" method="post">
     <div class="login-form-icon">
         <i class="fa-solid fa-circle-user fa-9x text-secondary"></i>
