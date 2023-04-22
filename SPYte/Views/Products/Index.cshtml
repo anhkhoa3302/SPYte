@@ -103,7 +103,7 @@
                                             </ul>
                                         </div>
                                         <div class="product__item__text">
-                                            <h6><a asp-action="Details" asp-controller="Products">@item.Name</a></h6>
+                                            <h6><a asp-action="Details" asp-controller="Products" asp-route-id="@item.Id">@item.Name</a></h6>
                                             <h5>@item.Price.ToString("#,###")&nbsp;<i class="fa-solid fa-dong-sign"></i></h5>
                                         </div>
                                     </div>

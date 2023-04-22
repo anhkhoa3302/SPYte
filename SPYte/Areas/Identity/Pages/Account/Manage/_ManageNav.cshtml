@@ -14,7 +14,10 @@
 </style>
 <ul class="nav nav-pills flex-column">
     <li class="nav-item"><a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index"><i class="fa-solid fa-user"></i>&nbsp;Hồ sơ</a></li>
-    <li class="nav-item"><a class="nav-link @ManageNavPages.UserProductsNavClass(ViewContext)" id="userProduct" asp-page="./UserProducts"><i class="fa-solid fa-book"></i>&nbsp;Sản phẩm</a></li>
+    @if(User.IsInRole("ShopOwner"))
+    {
+        <li class="nav-item"><a class="nav-link @ManageNavPages.UserProductsNavClass(ViewContext)" id="userProduct" asp-page="./UserProducts"><i class="fa-solid fa-book"></i>&nbsp;Sản phẩm</a></li>
+    }
     <li class="nav-item"><a class="nav-link @ManageNavPages.UserAddressClass(ViewContext)" id="userAddress" asp-page="./UserAddress"><i class="fa-solid fa-car"></i>&nbsp;Địa chỉ</a></li>
     <li class="nav-item"><a class="nav-link @ManageNavPages.UserOrdersNavClass(ViewContext)" id="userOrder" asp-page="./UserOrders"><i class="fa-solid fa-receipt"></i>&nbsp;Đơn hàng</a></li>
     <li class="nav-item"><a class="nav-link @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email"><i class="fa-solid fa-envelope"></i>&nbsp;Email</a></li>

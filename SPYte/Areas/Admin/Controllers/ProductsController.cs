@@ -14,6 +14,7 @@ using SPYte.Models;
 namespace SPYte.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class ProductsController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;

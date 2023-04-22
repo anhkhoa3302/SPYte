@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace SPYte.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdministratorController : Controller
     {
 
